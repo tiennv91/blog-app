@@ -1,0 +1,46 @@
+<div class="post-item">
+  <div class="post-header clearfix">
+    <div class="post-format-icon">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </div>
+    <div class="post-info-wrap">
+      <h2 class="post-title">
+        <%= @post.title %>
+      </h2>
+
+      <div class="post-meta clearfix">
+        <%= @post.created_at.strftime('%Y-%m-%d') %>
+        <div class="hidden-xs">
+          <hr style="margin: 10px 0 10px 0;">
+          <div>Tags: </div>
+          <% @post.tags.each do |tag| %>
+            <a href="/posts/tags?tag=<%= tag.name %>" class="tag-content">
+              <span class="tag-text"><%= tag.name %></span>
+              <span class="tag-num"><%= tag.taggings_count %></span>
+            </a>
+          <% end %>     
+        </div>  
+      </div>
+    </div>
+  </div>
+  
+  <div class="image-item">
+    <%= image_tag @post.cover_image, class: "img img-responsive" %>
+  </div>
+  <div class="post-content">
+    <%= markdown @post.content %>
+  </div>
+  
+  <br>
+  <div class="post-action">
+    <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-warning btn-circle" %>
+    <%= link_to 'Destroy', @post, method: :delete,  data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-circle' %>
+    <%= link_to 'Back', posts_path, class: "btn btn-sm btn-primary btn-circle" %>
+  </div>
+</div>
+
+<div class="post-item">
+  <div class="post-header clearfix">
+    <%= render "disqus" %>
+  </div>
+</div>
