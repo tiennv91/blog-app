@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="new-post-panel">
+    <%= simple_form_for @post, wrapper: :vertical_form do |f| %>
+
+      <div class="form-inputs">
+        <%= f.input :title, wrapper: :vertical_form do %>
+          <%= f.input_field :title, class: "form-control" %>
+        <% end %>
+        <br>
+        <%= f.input :cover_image, wrapper: :vertical_form do %>
+          <%= f.input_field :cover_image, as: :file, class: "form-control" %>
+        <% end %>
+        <br>
+        <%= f.input :tag_list, wrapper: :vertical_form, label: false do %>
+          <%= f.input :tag_list, :label => "Tags* (seperated by commas)", :input_html => { :class => "form-control", :value => @post.tag_list.join(", ") } %>
+        <% end %>
+        <br>
+        <%= f.input :description, as: :pagedown, input_html: { preview: true, rows: 10 } %>
+        <br>
+        <%= f.input :content, as: :pagedown, input_html: { preview: true, rows: 10 } %>
+      </div>
+      <br>
+      <div class="form-controls">
+        <%= f.submit "Save", :class => "btn btn-primary btn-circle text-uppercase" %>
+      </div>
+    <% end %>
+  </div>
+</div>
