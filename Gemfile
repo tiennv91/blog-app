@@ -53,8 +53,6 @@ gem 'friendly_id', '~> 5.1.0' # Note: You MUST use 5.0.0 or greater for Rails 4.
 gem 'toastr-rails'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem "font-awesome-rails"
-gem 'sunspot_rails'
-gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 gem 'pagedown-bootstrap-rails'
 gem 'redcarpet', '~> 3.0.0'
 gem 'disqus_rails'

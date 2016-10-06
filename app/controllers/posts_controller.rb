@@ -4,12 +4,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @query = Post.search do
-              fulltext params[:search]
-              #paginate :page => params[:page], :per_page => 5
-              order_by :created_at, :desc
-            end
-    @posts = @query.results
+    if params[:search].present?
+      @posts = Post.search(params[:search])
+    else
+      @posts = Post.all
+    end
   end
 
   # GET /posts/1
