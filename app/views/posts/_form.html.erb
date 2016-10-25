@@ -21,7 +21,8 @@
       </div>
       <br>
       <div class="form-controls">
-        <%= f.submit "Save", :class => "btn btn-primary btn-circle text-uppercase" %>
+        <%= f.submit "Draft", name: 'draft', :class => "btn btn-primary btn-circle text-uppercase" %>
+        <%= f.submit "Publish", name: 'publish', :class => "btn btn-success btn-circle text-uppercase" %>
       </div>
     <% end %>
   </div>

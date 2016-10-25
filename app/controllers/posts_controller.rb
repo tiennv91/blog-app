@@ -1,14 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
 
   # GET /posts
   # GET /posts.json
   def index
-    if params[:search].present?
-      @posts = Post.search(params[:search])
-    else
+    if user_signed_in? 
       @posts = Post.all
+    else 
+      @posts = Post.published
     end
+    @posts = @posts.search(params[:search]) if params[:search].present?
+    
   end
 
   # GET /posts/1
@@ -29,7 +32,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.draft = false if params[:name] == 'publish'
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -44,6 +47,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    @post.draft = false if params[:name] == 'publish'
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -80,6 +84,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :cover_image, :description, :content, :draft, :tag_list)
+      params.require(:post).permit(:title, :cover_image, :description, :content, :tag_list)
     end
 end

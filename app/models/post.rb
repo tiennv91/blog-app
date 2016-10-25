@@ -15,4 +15,6 @@ class Post < ActiveRecord::Base
   def self.search(search)
     where("lower(title) LIKE '%#{search.downcase}%' OR description LIKE '%#{search.downcase}%'")
   end
+
+  scope :published, -> {where(:draft => "false")}
 end

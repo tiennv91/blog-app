@@ -56,3 +56,4 @@ gem "font-awesome-rails"
 gem 'pagedown-bootstrap-rails'
 gem 'redcarpet', '~> 3.0.0'
 gem 'disqus_rails'
+gem 'devise'
