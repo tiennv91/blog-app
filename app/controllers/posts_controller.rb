@@ -11,8 +11,7 @@ class PostsController < ApplicationController
       @posts = Post.published
     end
     @posts = @posts.search(params[:search]) if params[:search].present?
-    
-  end
+    end
 
   # GET /posts/1
   # GET /posts/1.json
