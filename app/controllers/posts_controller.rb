@@ -10,8 +10,9 @@ class PostsController < ApplicationController
     else 
       @posts = Post.published
     end
+    @posts = @posts.order("created_at DESC")
     @posts = @posts.search(params[:search]) if params[:search].present?
-    end
+  end
 
   # GET /posts/1
   # GET /posts/1.json
@@ -31,7 +32,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    @post.draft = false if params[:name] == 'publish'
+    @post.draft = false if params[:publish].present?
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -46,7 +47,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    @post.draft = false if params[:name] == 'publish'
+    @post.draft = false if params[:publish].present?
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
